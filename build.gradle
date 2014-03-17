@@ -34,8 +34,19 @@ android {
             runProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             zipAlign true
+            signingConfig signingConfigs.release
         }
     }
+
+     signingConfigs {
+        release {
+            storeFile System.getenv("KEYSTORE")
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+
 
     sourceSets {
         main {
