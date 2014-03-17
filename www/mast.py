@@ -1,5 +1,5 @@
 """
- WebCaster - Chromecast Web Media Library
+ Mast - Cast Web Media Player
  Copyright (C) 2013 Bryan Emmanuel
 
  This program is free software: you can redistribute it and/or modify

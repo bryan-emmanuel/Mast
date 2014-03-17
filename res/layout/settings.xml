@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
- * WebCaster - Chromecast Web Media Library
+ * Mast - Cast Web Media Player
  * Copyright (C) 2013 Bryan Emmanuel
  *
  * This program is free software: you can redistribute it and/or modify
@@ -23,17 +23,11 @@
     android:layout_height="match_parent" >
 
     <EditText
-        android:id="@+id/setting_app_id"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/setting_app_id" />
-
-    <EditText
         android:id="@+id/setting_host"
+        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/setting_host"
-        android:layout_below="@id/setting_app_id" />
+        android:hint="@string/setting_host" />
 
     <Button
         android:id="@+id/button_submit"

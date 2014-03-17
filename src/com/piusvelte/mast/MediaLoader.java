@@ -1,5 +1,5 @@
 /*
- * WebCaster - Chromecast Web Media Library
+ * Mast - Cast Web Media Player
  * Copyright (C) 2013 Bryan Emmanuel
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,7 +17,7 @@
  *
  *  Bryan Emmanuel piusvelte@gmail.com
  */
-package com.piusvelte.webcaster;
+package com.piusvelte.mast;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -41,7 +41,7 @@ import android.support.v4.content.AsyncTaskLoader;
 public class MediaLoader extends AsyncTaskLoader<List<Medium>> {
 
 	private static final String TAG = "MediaLoader";
-	private static final String MEDIA_LIBRARY_URL_FORMAT = "http://%s/webcaster.py";
+	private static final String MEDIA_LIBRARY_URL_FORMAT = "http://%s/mast.py";
 
 	List<Medium> media = null;
 	URL mediaUrl = null;
