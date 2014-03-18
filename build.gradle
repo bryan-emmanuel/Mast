@@ -11,20 +11,6 @@ allprojects {
     repositories {
         mavenCentral()
     }
-
-    afterEvaluate { project ->
-        def propsFile = rootProject.file('../keystore.properties')
-        def configName = 'release'
-
-        if (propsFile.exists() && android.signingConfigs.hasProperty(configName)) {
-            def props = new Properties()
-            props.load(new FileInputStream(propsFile))
-            android.signingConfigs[configName].storeFile = file(props['storeFile'])
-            android.signingConfigs[configName].storePassword = props['storePassword']
-            android.signingConfigs[configName].keyAlias = props['keyAlias']
-            android.signingConfigs[configName].keyPassword = props['keyPassword']
-        }
-    }
 }
 
 apply plugin: 'android'
@@ -73,4 +59,8 @@ dependencies {
     compile files('libs/gson-2.2.4.jar',
                   'libs/guava-14.0.1.jar',
                   'libs/json-simple-1.1.1.jar')
+}
+
+if (new File("~/.signing/signing.gradle").exists()) {
+    apply from: "~/.signing/signing.gradle";
 }
