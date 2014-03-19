@@ -17,7 +17,7 @@ apply plugin: 'android'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19.0.3"
+    buildToolsVersion '19.0.3'
 
     defaultConfig {
         minSdkVersion 11
@@ -61,6 +61,7 @@ dependencies {
                   'libs/json-simple-1.1.1.jar')
 }
 
-if (new File("~/.signing/signing.gradle").exists()) {
-    apply from: "~/.signing/signing.gradle";
+def signing = System.properties['user.home'] + '/.signing/signing.gradle';
+if (new File(signing).exists()) {
+    apply from: signing
 }
