@@ -31,7 +31,7 @@ public class SettingsActivity extends FragmentActivity implements
         OnClickListener {
 
     public static final String EXTRA_HOST = "com.piusvelte.webcaster.HOST";
-    private static final String TAG = "SettingsActivity";
+    private static final String TAG = SettingsActivity.class.getSimpleName();
     private EditText hostView;
 
     @Override

@@ -17,31 +17,17 @@
  *
  *  Bryan Emmanuel piusvelte@gmail.com
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity" >
-
-    <Button
-        android:id="@+id/btn_play"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/select_cast_device" />
-
-    <SeekBar
-        android:id="@+id/seek"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btn_play" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/seek"
-        android:layout_alignParentTop="true" >
+        android:layout_height="match_parent" >
 
         <!--
     This title strip will display the currently visible page title, as well as the page
@@ -59,4 +45,12 @@
             android:textColor="#fff" />
     </android.support.v4.view.ViewPager>
 
-</RelativeLayout>
+    <com.google.sample.castcompanionlibrary.widgets.MiniController
+        android:id="@+id/miniController"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone">
+    </com.google.sample.castcompanionlibrary.widgets.MiniController>
+
+</LinearLayout>

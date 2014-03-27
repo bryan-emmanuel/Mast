@@ -44,7 +44,7 @@ import android.widget.TextView;
 
 public class MediaListFragment extends ListFragment {
 
-	private static final String TAG = "MediaListFragment";
+	private static final String TAG = MediaListFragment.class.getSimpleName();
 	public static final String EXTRA_DIR_POSITION = "com.piusvelte.webcaster.EXTRA_DIR_POSITION";
 
 	int dirPosition = 0;
@@ -58,8 +58,6 @@ public class MediaListFragment extends ListFragment {
 		void openDir(int parent, int child);
 
 		void openMedium(int parent, int child);
-
-		String getTitle(int dirPosition);
 
 		String getHost();
 
@@ -174,6 +172,7 @@ public class MediaListFragment extends ListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
 		adapter = new MediaListAdapter(getActivity(), R.layout.media_list_item,
 				new ArrayList<Medium>());
 		setListAdapter(adapter);

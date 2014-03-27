@@ -37,10 +37,11 @@ import com.google.gson.Gson;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
+import android.util.Log;
 
 public class MediaLoader extends AsyncTaskLoader<List<Medium>> {
 
-	private static final String TAG = "MediaLoader";
+	private static final String TAG = MediaLoader.class.getSimpleName();
 	private static final String MEDIA_LIBRARY_URL_FORMAT = "http://%s/mast.py";
 
 	List<Medium> media = null;
@@ -52,28 +53,23 @@ public class MediaLoader extends AsyncTaskLoader<List<Medium>> {
 		if (host != null) {
 
 			try {
-				mediaUrl = new URL(
-						String.format(MEDIA_LIBRARY_URL_FORMAT, host));
+				mediaUrl = new URL(String.format(MEDIA_LIBRARY_URL_FORMAT, host));
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+                Log.e(TAG, "bad url", e);
 			}
 		}
 	}
 
 	public void loadHost(String host) {
-		if (host != null) {
+		if (host == null) {
+            mediaUrl = null;
+        } else if (!host.equals(mediaUrl.getHost())) {
 			try {
-				mediaUrl = new URL(
-						String.format(MEDIA_LIBRARY_URL_FORMAT, host));
+				mediaUrl = new URL(String.format(MEDIA_LIBRARY_URL_FORMAT, host));
+                forceLoad();
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+                Log.e(TAG, "bad url", e);
 			}
-
-			forceLoad();
-		} else {
-			mediaUrl = null;
 		}
 	}
 

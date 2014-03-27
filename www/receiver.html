@@ -2,9 +2,15 @@
 <head>
     <title>Mast</title>
     <script src="//www.gstatic.com/cast/sdk/libs/receiver/2.0.0/cast_receiver.js"></script>
+    <style>
+        #media {
+            width:100%;
+            height:100%;
+        }
+    </style>
 </head>
 <body>
-<video id='media'/>
+<video id="media"/>
 <script>
     window.onload = function() {
       window.mediaElement = document.getElementById('media');
