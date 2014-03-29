@@ -51,6 +51,16 @@ public class Medium {
 		this.dir = dir;
 	}
 
+    public String getTitle() {
+        String title = file.substring(file.lastIndexOf("/") + 1);
+        int idxExtensionSeparator =  title.lastIndexOf(".");
+        if (idxExtensionSeparator > -1) {
+            return title.substring(0, idxExtensionSeparator);
+        }
+
+        return title;
+    }
+
 	public Medium getMediumAt(int i) {
 		if (i < dir.size()) {
 			return dir.get(i);

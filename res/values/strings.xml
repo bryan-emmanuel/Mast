@@ -30,5 +30,6 @@
     <string name="select_cast_device">Select a cast device</string>
     <string name="setting_host">Media Host</string>
     <string name="button_submit">Submit</string>
+    <string name="error_host_empty">Please enter a host to load media</string>
 
 </resources>

@@ -50,12 +50,12 @@ import com.google.sample.castcompanionlibrary.cast.exceptions.NoConnectionExcept
 import com.google.sample.castcompanionlibrary.cast.exceptions.TransientNetworkDisconnectionException;
 import com.google.sample.castcompanionlibrary.cast.player.VideoCastControllerActivity;
 import com.google.sample.castcompanionlibrary.widgets.MiniController;
+import com.piusvelte.mast.utils.MediaUrlUtils;
 
 public class MainActivity extends ActionBarActivity implements LoaderCallbacks<List<Medium>>, MediaListFragment.Listener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int FRAGMENT_MEDIA_ROOT = 0;
-    private static final String URL_FORMAT = "http://%s/%s";
     private static final String CONTENT_TYPE = "video/mp4";
     private static final String PREFERENCE_KEY_HOST = "host";
     static final String APP_ID = "C8E438D7";
@@ -242,11 +242,10 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
 
     @Override
     public void openMedium(int parent, int child) {
-        Medium m = getMediaAt(parent).get(child);
-
-        String title = m.getFile().substring(m.getFile().lastIndexOf(File.separator) + 1);
-        String url = String.format(URL_FORMAT, mMediaHost, m.getFile());
-        Uri imageUrl = Uri.parse(String.format(URL_FORMAT, mMediaHost, m.getImg()));
+        Medium medium = getMediaAt(parent).get(child);
+        String title = medium.getTitle();
+        String videoUrl = MediaUrlUtils.getVideoUrl(mMediaHost, medium);
+        Uri imageUrl = MediaUrlUtils.getCoverUri(mMediaHost, medium);
         WebImage image = new WebImage(imageUrl);
 
         MediaMetadata metadata = new MediaMetadata(MediaMetadata.MEDIA_TYPE_MOVIE);
@@ -258,7 +257,7 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
         // lockscreen
         metadata.addImage(image);
 
-        MediaInfo mediaInfo = new MediaInfo.Builder(url)
+        MediaInfo mediaInfo = new MediaInfo.Builder(videoUrl)
                 .setStreamType(MediaInfo.STREAM_TYPE_BUFFERED)
                 .setContentType(CONTENT_TYPE)
                 .setMetadata(metadata)

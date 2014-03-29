@@ -22,10 +22,12 @@ package com.piusvelte.mast;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class SettingsActivity extends FragmentActivity implements
         OnClickListener {
@@ -54,10 +56,15 @@ public class SettingsActivity extends FragmentActivity implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.button_submit) {
-            setResult(
-                    RESULT_OK,
-                    new Intent().putExtra(EXTRA_HOST, hostView.getText().toString()));
-            finish();
+            String host = hostView.getText().toString();
+            if (TextUtils.isEmpty(host)) {
+                Toast.makeText(this, R.string.error_host_empty, Toast.LENGTH_LONG).show();
+            } else {
+                setResult(
+                        RESULT_OK,
+                        new Intent().putExtra(EXTRA_HOST, hostView.getText().toString()));
+                finish();
+            }
         }
     }
 }
