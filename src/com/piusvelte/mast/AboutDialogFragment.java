@@ -1,4 +1,4 @@
-<!--
+/*
  * Mast - Cast Web Media Player
  * Copyright (C) 2013 Bryan Emmanuel
  *
@@ -16,29 +16,30 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  *  Bryan Emmanuel piusvelte@gmail.com
--->
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+ */
+package com.piusvelte.mast;
 
-    <item
-        android:id="@+id/media_route_menu_item"
-        android:title="@string/media_route_menu_title"
-        app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider"
-        app:showAsAction="always" />
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 
-    <item
-        android:id="@+id/action_refresh"
-        android:title="@string/action_refresh"
-        app:showAsAction="never" />
+/**
+ * Created by bemmanuel on 3/29/14.
+ */
+public class AboutDialogFragment extends DialogFragment {
 
-    <item
-        android:id="@+id/action_settings"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+    public static AboutDialogFragment newInstance() {
+        return new AboutDialogFragment();
+    }
 
-    <item
-        android:id="@+id/action_about"
-        android:title="@string/action_about"
-        app:showAsAction="never" />
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.action_about)
+                .setMessage(R.string.about)
+                .setCancelable(true)
+                .create();
+    }
 
-</menu>
+}

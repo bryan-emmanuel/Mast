@@ -19,7 +19,6 @@
  */
 package com.piusvelte.mast;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -52,7 +51,8 @@ import com.google.sample.castcompanionlibrary.cast.player.VideoCastControllerAct
 import com.google.sample.castcompanionlibrary.widgets.MiniController;
 import com.piusvelte.mast.utils.MediaUrlUtils;
 
-public class MainActivity extends ActionBarActivity implements LoaderCallbacks<List<Medium>>, MediaListFragment.Listener {
+public class MainActivity extends ActionBarActivity implements LoaderCallbacks<List<Medium>>, MediaListFragment.Listener,
+        ViewPager.OnPageChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int FRAGMENT_MEDIA_ROOT = 0;
@@ -86,6 +86,7 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mDirPagerAdapter);
+        mViewPager.setOnPageChangeListener(this);
 
         mMediaHost = PreferenceManager.getDefaultSharedPreferences(this).getString(PREFERENCE_KEY_HOST, null);
 
@@ -329,6 +330,10 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
             );
 
             return true;
+        } else if (itemId == R.id.action_about) {
+            AboutDialogFragment.newInstance().show(getSupportFragmentManager(), "dialog:about");
+        } else if (itemId == android.R.id.home) {
+            pageUpDirectory();
         }
 
         return super.onOptionsItemSelected(item);
@@ -364,6 +369,42 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
         editor.commit();
     }
 
+    private boolean isPagerAtRoot() {
+        return mViewPager.getCurrentItem() == 0;
+    }
+
+    private boolean pageUpDirectory() {
+        if (!isPagerAtRoot()) {
+            mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        // go up a directory if possible
+        if (!pageUpDirectory()) {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        // NO-OP
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        getActionBar().setDisplayHomeAsUpEnabled(!isPagerAtRoot());
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        // NO-OP
+    }
+
     public class DirPagerAdapter extends FragmentPagerAdapter {
 
         public DirPagerAdapter(FragmentManager fm) {
@@ -372,11 +413,7 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
 
         @Override
         public Fragment getItem(int position) {
-            Fragment fragment = new MediaListFragment();
-            Bundle args = new Bundle();
-            args.putInt(MediaListFragment.EXTRA_DIR_POSITION, position);
-            fragment.setArguments(args);
-            return fragment;
+            return MediaListFragment.newInstance(position);
         }
 
         @Override
@@ -391,9 +428,9 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
             if (position == FRAGMENT_MEDIA_ROOT) {
                 return mMediaHost.toUpperCase(l);
             } else {
-                Medium m = getMediumAt(position);
-                if (m != null) {
-                    return m.getFile().substring(m.getFile().lastIndexOf(File.separator) + 1).toUpperCase(l);
+                Medium medium = getMediumAt(position);
+                if (medium != null) {
+                    return medium.getTitle().toUpperCase(l);
                 } else {
                     return "";
                 }

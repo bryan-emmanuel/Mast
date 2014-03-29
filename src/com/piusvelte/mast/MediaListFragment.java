@@ -58,6 +58,14 @@ public class MediaListFragment extends ListFragment {
         String getHost();
     }
 
+    public static MediaListFragment newInstance(int dirPosition) {
+        MediaListFragment fragment = new MediaListFragment();
+        Bundle args = new Bundle();
+        args.putInt(EXTRA_DIR_POSITION, dirPosition);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     public void onMediaLoaded(List<Medium> media) {
         adapter.clear();
         adapter.addAll(media);
@@ -81,6 +89,7 @@ public class MediaListFragment extends ListFragment {
                 viewHolder = new MediaViewHolder();
                 viewHolder.imgCover = (ImageView) view.findViewById(R.id.cover);
                 viewHolder.tvFile = (TextView) view.findViewById(R.id.title);
+                viewHolder.forward = view.findViewById(R.id.forward);
                 view.setTag(viewHolder);
             } else {
                 viewHolder = (MediaViewHolder) view.getTag();
@@ -103,6 +112,8 @@ public class MediaListFragment extends ListFragment {
             }
 
             viewHolder.tvFile.setText(medium.getTitle());
+            viewHolder.forward.setVisibility(medium.getDir().size() > 0 ? View.VISIBLE : View.GONE);
+
             return view;
         }
     }
@@ -110,6 +121,7 @@ public class MediaListFragment extends ListFragment {
     static class MediaViewHolder {
         ImageView imgCover;
         TextView tvFile;
+        View forward;
     }
 
     @Override
