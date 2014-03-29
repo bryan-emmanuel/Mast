@@ -1,19 +1,12 @@
-WebCaster allows browsing and casting videos over HTTP.
+Mast allows browsing and casting videos over HTTP.
 
-Whitelist your chromecast device, using your server as the receiver URL,
- such as http://192.168.0.1/receiver.html
+Copy the www/mast.py file to your webserver in the same directory as the videos.
 
-Update your whitelist app id in the www/receiver.html file. This is the same file as
- provided in the cast sample project. Copy this file to the server location used in
- whitelisting.
+Note: the videos need to be in a format supported by Chromecast
+https://developers.google.com/cast/supported_media_types
 
-Copy the www/webcaster.py file to your webserver in the same directory as the videos.
-
-Note: the videos need to be in a format supported by Chromecast https://developers.google.com/cast/supported_media_types
-
-In the app settings, provide the URL for the directory containing the videos and the
- webcaster.py file, excluding protocol, such as 192.168.0.1. Also provide the
- whitelist app id.
+In the app settings, provide the URL for the directory containing the videos
+and the mast.py file. If no protocol is specified, http is used by default
 
 Movie Covers:
 
