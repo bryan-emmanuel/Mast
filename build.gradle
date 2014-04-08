@@ -33,8 +33,10 @@ android {
         }
         release {
             debuggable false
-            runProguard true
+            runProguard false
             zipAlign true
+            //proguardFile getDefaultProguardFile('proguard-android.txt')
+            //proguardFile 'proguard.txt'
         }
     }
 
