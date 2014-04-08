@@ -2,3 +2,6 @@
 	path = CastCompanionLibrary
 	url = https://github.com/googlecast/CastCompanionLibrary-android.git
 
+[submodule "Eidos"]
+	path = Eidos
+	url = https://github.com/piusvelte/Eidos.git

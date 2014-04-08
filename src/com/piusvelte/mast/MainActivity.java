@@ -49,6 +49,7 @@ import com.google.sample.castcompanionlibrary.cast.exceptions.NoConnectionExcept
 import com.google.sample.castcompanionlibrary.cast.exceptions.TransientNetworkDisconnectionException;
 import com.google.sample.castcompanionlibrary.cast.player.VideoCastControllerActivity;
 import com.google.sample.castcompanionlibrary.widgets.MiniController;
+import com.piusvelte.eidos.Eidos;
 import com.piusvelte.mast.utils.MediaUrlUtils;
 
 public class MainActivity extends ActionBarActivity implements LoaderCallbacks<List<Medium>>, MediaListFragment.Listener,
@@ -367,6 +368,7 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
         }
 
         editor.commit();
+        Eidos.requestBackup(this);
     }
 
     private boolean isPagerAtRoot() {
