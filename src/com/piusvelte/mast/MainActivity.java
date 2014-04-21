@@ -107,7 +107,7 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
     @Override
     protected void onResume() {
         super.onResume();
-        mCastManager.incrementUiCounter();
+        mCastManager.incrementUiCounter(this);
 
         if (mMediaHost == null) {
             startActivityForResult(new Intent(this, SettingsActivity.class)
