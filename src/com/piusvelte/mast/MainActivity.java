@@ -107,7 +107,8 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
     @Override
     protected void onResume() {
         super.onResume();
-        mCastManager.incrementUiCounter(this);
+        mCastManager.setContext(this);
+        mCastManager.incrementUiCounter();
 
         if (mMediaHost == null) {
             startActivityForResult(new Intent(this, SettingsActivity.class)
@@ -120,6 +121,7 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
         mCastManager.enableFeatures(VideoCastManager.FEATURE_LOCKSCREEN
                 | VideoCastManager.FEATURE_NOTIFICATION
                 | VideoCastManager.FEATURE_DEBUGGING);
+        mCastManager.setContext(this);
     }
 
     private void setupMiniController() {

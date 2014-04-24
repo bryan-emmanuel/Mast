@@ -1,6 +1,6 @@
 [submodule "CastCompanionLibrary"]
 	path = CastCompanionLibrary
-	url = https://github.com/piusvelte/CastCompanionLibrary-android.git
+	url = https://github.com/googlecast/CastCompanionLibrary-android.git
 
 [submodule "Eidos"]
 	path = Eidos
