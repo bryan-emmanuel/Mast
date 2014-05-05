@@ -72,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        VideoCastManager.checkGooglePlaySevices(this);
+        VideoCastManager.checkGooglePlayServices(this);
         setContentView(R.layout.activity_main);
 
         initCastManager();
