@@ -19,9 +19,7 @@
 -->
 <manifest
     package="com.piusvelte.mast"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:versionCode="12"
-    android:versionName="2.1">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk
         android:minSdkVersion="11"
