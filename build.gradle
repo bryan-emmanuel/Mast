@@ -3,8 +3,12 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.android.tools.build:gradle:0.13.+'
     }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.1'
 }
 
 allprojects {
@@ -17,7 +21,7 @@ apply plugin: 'android'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19"
+    buildToolsVersion "20.0.0"
 
     defaultConfig {
         versionCode 13
