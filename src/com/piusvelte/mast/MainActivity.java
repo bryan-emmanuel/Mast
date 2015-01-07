@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
         initCastManager();
         setupMiniController();
 
-        mCastManager.reconnectSessionIfPossible(this, true);
+        mCastManager.reconnectSessionIfPossible();
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the app.
@@ -107,7 +107,6 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
     @Override
     protected void onResume() {
         super.onResume();
-        mCastManager.setContext(this);
         mCastManager.incrementUiCounter();
 
         if (mMediaHost == null) {
@@ -121,7 +120,6 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
         mCastManager.enableFeatures(VideoCastManager.FEATURE_LOCKSCREEN
                 | VideoCastManager.FEATURE_NOTIFICATION
                 | VideoCastManager.FEATURE_DEBUGGING);
-        mCastManager.setContext(this);
     }
 
     private void setupMiniController() {
