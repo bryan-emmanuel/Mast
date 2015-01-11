@@ -34,6 +34,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -141,6 +142,7 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
                 reloadMedia();
             } else if (mMediaHost != null && !mMediaHost.equals(resultHost)) {
                 mMediaHost = resultHost;
+
                 if (resultHost == null) {
                     // TODO stop playing
                 }
@@ -399,7 +401,13 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
 
     @Override
     public void onPageSelected(int position) {
-        getActionBar().setDisplayHomeAsUpEnabled(!isPagerAtRoot());
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            boolean isSubFolder = !isPagerAtRoot();
+            actionBar.setDisplayHomeAsUpEnabled(isSubFolder);
+            actionBar.setHomeButtonEnabled(isSubFolder);
+        }
     }
 
     @Override

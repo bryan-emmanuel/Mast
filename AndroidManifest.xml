@@ -67,10 +67,11 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:parentActivityName="com.piusvelte.mast.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="*MY_PARENT_ACTIVITY*" />
+                android:value="com.piusvelte.mast.MainActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
