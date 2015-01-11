@@ -10,11 +10,76 @@
     </style>
 </head>
 <body>
-<video id="media"/>
-<script>
+<div id="library"></div>
+<video id="media"></video>
+<script type='text/javascript'>
+    var libraryUrl = 'mast.py';
+
+    function openLibrary() {
+        window.libraryElement.style.display = 'initial';
+
+        // load library
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                alert(xmlhttp.responseText);
+                var media = JSON.parse(xmlhttp.responseText);
+                
+                for (var i = 0; i < media.length; i++) {
+                    var img = document.createElement('img');
+                    img.width = 200;
+                    img.height = 300;
+                    img.src = media[i].img;
+                    window.libraryElement.appendChild(img);
+                }
+            }
+        };
+        xmlhttp.open('GET', libraryUrl, true);
+        xmlhttp.send();
+    }
+
+    function closeLibrary() {
+        window.libraryElement.style.display = 'none';
+
+        // remove existing media
+        while (window.libraryElement.hasChildNodes()) {
+            window.libraryElement.removeChild(window.libraryElement.lastChild);
+        }
+    }
+
     window.onload = function() {
         window.mediaElement = document.getElementById('media');
+        window.libraryElement = document.getElementById('library');
         window.mediaManager = new cast.receiver.MediaManager(window.mediaElement);
+
+        // onPlay
+        window.mediaManager.onPlay = (function() {
+            var onPlay = mediaManager.onPlay;
+            return function(event) {
+                closeLibrary();
+                onPlay(event);
+            }
+        }());
+
+        // onStop
+        window.mediaManager.onStop = (function() {
+            var onStop = mediaManager.onStop;
+            return function(event) {
+                openLibrary();
+                onStop(event);
+            }
+        }());
+
+        // onEnded
+        window.mediaManager.onEnded = (function() {
+            var onEnded = mediaManager.onEnded;
+            return function() {
+                openLibrary();
+                onEnded();
+            }
+        }());
+
         window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
         window.castReceiverManager.start();
 
@@ -25,7 +90,9 @@
                 window.close();
             }
         };
+
+        openLibrary();
     };
-  </script>
+</script>
 </body>
 </html>
