@@ -23,7 +23,6 @@
 
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                alert(xmlhttp.responseText);
                 var media = JSON.parse(xmlhttp.responseText);
                 
                 for (var i = 0; i < media.length; i++) {
@@ -52,13 +51,13 @@
         window.mediaElement = document.getElementById('media');
         window.libraryElement = document.getElementById('library');
         window.mediaManager = new cast.receiver.MediaManager(window.mediaElement);
-
-        // onPlay
-        window.mediaManager.onPlay = (function() {
-            var onPlay = mediaManager.onPlay;
+        
+        // onLoad
+        window.mediaManager.onLoad = (function() {
+            var onLoad = mediaManager.onLoad;
             return function(event) {
                 closeLibrary();
-                onPlay(event);
+                onLoad(event);
             }
         }());
 
