@@ -19,10 +19,6 @@
  */
 package com.piusvelte.mast;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -36,7 +32,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,14 +39,14 @@ import android.view.MenuItem;
 import com.google.android.gms.cast.MediaInfo;
 import com.google.android.gms.cast.MediaMetadata;
 import com.google.android.gms.common.images.WebImage;
-import com.google.sample.castcompanionlibrary.cast.VideoCastManager;
-import com.google.sample.castcompanionlibrary.cast.exceptions.CastException;
-import com.google.sample.castcompanionlibrary.cast.exceptions.NoConnectionException;
-import com.google.sample.castcompanionlibrary.cast.exceptions.TransientNetworkDisconnectionException;
-import com.google.sample.castcompanionlibrary.cast.player.VideoCastControllerActivity;
-import com.google.sample.castcompanionlibrary.widgets.MiniController;
+import com.google.android.libraries.cast.companionlibrary.cast.VideoCastManager;
+import com.google.android.libraries.cast.companionlibrary.widgets.MiniController;
 import com.piusvelte.eidos.Eidos;
 import com.piusvelte.mast.utils.MediaUrlUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class MainActivity extends ActionBarActivity implements LoaderCallbacks<List<Medium>>, MediaListFragment.Listener,
         ViewPager.OnPageChangeListener {
@@ -267,41 +262,16 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
                 .setMetadata(metadata)
                 .build();
 
-        mCastManager.startCastControllerActivity(this, mediaInfo, 0, true);
+        mCastManager.startVideoCastControllerActivity(this, mediaInfo, 0, true);
     }
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
-        int action = event.getAction();
-        int keyCode = event.getKeyCode();
-        switch (keyCode) {
-            case KeyEvent.KEYCODE_VOLUME_UP:
-                if (action == KeyEvent.ACTION_DOWN) {
-                    changeVolume(VideoCastControllerActivity.DEFAULT_VOLUME_INCREMENT);
-                }
-
-                return true;
-            case KeyEvent.KEYCODE_VOLUME_DOWN:
-                if (action == KeyEvent.ACTION_DOWN) {
-                    changeVolume(-VideoCastControllerActivity.DEFAULT_VOLUME_INCREMENT);
-                }
-
-                return true;
-            default:
-                return super.dispatchKeyEvent(event);
+        if (mCastManager.onDispatchVolumeKeyEvent(event, mCastManager.getVolumeStep())) {
+            return true;
         }
-    }
 
-    private void changeVolume(float delta) {
-        try {
-            mCastManager.incrementVolume(delta);
-        } catch (CastException e) {
-            Log.e(TAG, "set volume error", e);
-        } catch (TransientNetworkDisconnectionException e) {
-            Log.e(TAG, "set volume error", e);
-        } catch (NoConnectionException e) {
-            Log.e(TAG, "set volume error", e);
-        }
+        return super.dispatchKeyEvent(event);
     }
 
     @Override
