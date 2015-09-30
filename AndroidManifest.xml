@@ -63,7 +63,7 @@
 
         <!-- CastCompanionLibrary dependencies -->
         <activity
-            android:name="com.google.sample.castcompanionlibrary.cast.player.VideoCastControllerActivity"
+            android:name="com.google.android.libraries.cast.companionlibrary.cast.player.VideoCastControllerActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:parentActivityName="com.piusvelte.mast.MainActivity"
@@ -77,7 +77,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.google.sample.castcompanionlibrary.remotecontrol.VideoIntentReceiver">
+        <receiver android:name="com.google.android.libraries.cast.companionlibrary.remotecontrol.VideoIntentReceiver">
             <intent-filter>
                 <action android:name="android.media.AUDIO_BECOMING_NOISY" />
                 <action android:name="android.intent.action.MEDIA_BUTTON" />
@@ -88,7 +88,7 @@
         </receiver>
 
         <service
-            android:name="com.google.sample.castcompanionlibrary.notification.VideoCastNotificationService"
+            android:name="com.google.android.libraries.cast.companionlibrary.notification.VideoCastNotificationService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.sample.castcompanionlibrary.action.toggleplayback" />
