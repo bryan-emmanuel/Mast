@@ -83,7 +83,7 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mDirPagerAdapter);
-        mViewPager.setOnPageChangeListener(this);
+        mViewPager.addOnPageChangeListener(this);
 
         mMediaHost = PreferenceManager.getDefaultSharedPreferences(this).getString(PREFERENCE_KEY_HOST, null);
 
@@ -115,7 +115,8 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
         mCastManager = VideoCastManager.initialize(this, APP_ID, null, null);
         mCastManager.enableFeatures(VideoCastManager.FEATURE_LOCKSCREEN
                 | VideoCastManager.FEATURE_NOTIFICATION
-                | VideoCastManager.FEATURE_DEBUGGING);
+                | VideoCastManager.FEATURE_DEBUGGING
+                | VideoCastManager.FEATURE_WIFI_RECONNECT);
     }
 
     private void setupMiniController() {
