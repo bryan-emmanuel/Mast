@@ -31,7 +31,7 @@ import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,14 +48,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends ActionBarActivity implements LoaderCallbacks<List<Medium>>, MediaListFragment.Listener,
+public class MainActivity extends AppCompatActivity implements LoaderCallbacks<List<Medium>>, MediaListFragment.Listener,
         ViewPager.OnPageChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int FRAGMENT_MEDIA_ROOT = 0;
     private static final String CONTENT_TYPE = "video/mp4";
     private static final String PREFERENCE_KEY_HOST = "host";
-    static final String APP_ID = "C8E438D7";
 
     private String mMediaHost = null;
     private List<Medium> mMedia = new ArrayList<Medium>();
@@ -112,11 +111,7 @@ public class MainActivity extends ActionBarActivity implements LoaderCallbacks<L
     }
 
     private void initCastManager() {
-        mCastManager = VideoCastManager.initialize(this, APP_ID, null, null);
-        mCastManager.enableFeatures(VideoCastManager.FEATURE_LOCKSCREEN
-                | VideoCastManager.FEATURE_NOTIFICATION
-                | VideoCastManager.FEATURE_DEBUGGING
-                | VideoCastManager.FEATURE_WIFI_RECONNECT);
+        mCastManager = VideoCastManager.getInstance();
     }
 
     private void setupMiniController() {

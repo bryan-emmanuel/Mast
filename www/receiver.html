@@ -47,51 +47,49 @@
         }
     }
 
-    window.onload = function() {
-        window.mediaElement = document.getElementById('media');
-        window.libraryElement = document.getElementById('library');
-        window.mediaManager = new cast.receiver.MediaManager(window.mediaElement);
+    window.mediaElement = document.getElementById('media');
+    window.libraryElement = document.getElementById('library');
+    window.mediaManager = new cast.receiver.MediaManager(window.mediaElement);
         
-        // onLoad
-        window.mediaManager.onLoad = (function() {
-            var onLoad = mediaManager.onLoad;
-            return function(event) {
-                closeLibrary();
-                onLoad(event);
-            }
-        }());
+    // onLoad
+    //window.mediaManager.onLoad = (function() {
+    //    var onLoad = mediaManager.onLoad;
+    //    return function(event) {
+    //        closeLibrary();
+    //        onLoad(event);
+    //    }
+    //}());
 
-        // onStop
-        window.mediaManager.onStop = (function() {
-            var onStop = mediaManager.onStop;
-            return function(event) {
-                openLibrary();
-                onStop(event);
-            }
-        }());
+    // onStop
+    //window.mediaManager.onStop = (function() {
+    //    var onStop = mediaManager.onStop;
+    //    return function(event) {
+    //        openLibrary();
+    //        onStop(event);
+    //    }
+    //}());
 
-        // onEnded
-        window.mediaManager.onEnded = (function() {
-            var onEnded = mediaManager.onEnded;
-            return function() {
-                openLibrary();
-                onEnded();
-            }
-        }());
+    // onEnded
+    //window.mediaManager.onEnded = (function() {
+    //    var onEnded = mediaManager.onEnded;
+    //    return function() {
+    //        openLibrary();
+    //        onEnded();
+    //    }
+    //}());
 
-        window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
-        window.castReceiverManager.start();
+    window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+    window.castReceiverManager.start();
 
-        // stop casting when last sender intentionally disconnects
-        window.castReceiverManager.onSenderDisconnected = function(event) {
-            if(window.castReceiverManager.getSenders().length == 0 &&
-                event.reason == cast.receiver.system.DisconnectReason.REQUESTED_BY_SENDER) {
-                window.close();
-            }
-        };
-
-        openLibrary();
+    // stop casting when last sender intentionally disconnects
+    window.castReceiverManager.onSenderDisconnected = function(event) {
+        if (window.castReceiverManager.getSenders().length == 0 &&
+            event.reason == cast.receiver.system.DisconnectReason.REQUESTED_BY_SENDER) {
+            window.close();
+        }
     };
+
+    //openLibrary();
 </script>
 </body>
 </html>
